@@ -16,4 +16,16 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="2" author="sazonovfm">
+        <createTable tableName="authors">
+            <column name="author_id" type="varchar">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+        <addColumn tableName="books">
+            <column name="author_id" type="varchar">
+                <constraints foreignKeyName="author_id"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
