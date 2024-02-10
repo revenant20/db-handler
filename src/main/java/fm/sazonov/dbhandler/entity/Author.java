@@ -1,4 +1,4 @@
-package fm.sazonov.dbhandler;
+package fm.sazonov.dbhandler.entity;
 
 import lombok.Getter;
 import lombok.Setter;

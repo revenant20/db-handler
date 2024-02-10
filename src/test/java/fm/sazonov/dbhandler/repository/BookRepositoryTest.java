@@ -1,5 +1,7 @@
-package fm.sazonov.dbhandler;
+package fm.sazonov.dbhandler.repository;
 
+import fm.sazonov.dbhandler.TestcontainersInitializer;
+import fm.sazonov.dbhandler.entity.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc

@@ -1,6 +1,5 @@
-package fm.sazonov.dbhandler;
+package fm.sazonov.dbhandler.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
