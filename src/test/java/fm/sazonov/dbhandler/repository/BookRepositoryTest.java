@@ -15,8 +15,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -34,10 +32,10 @@ class BookRepositoryTest {
 
     @Test
     void testAdding() {
-        Book save = bookRepository.save(new Book());
-        String id = save.getId();
-        System.out.println("save.getId() = " + id);
-        Optional<Book> founded = bookRepository.findById(id);
+        var saved = bookRepository.save(new Book());
+        var id = saved.getId();
+        System.out.println("saved.getId() = " + id);
+        var founded = bookRepository.findById(id);
         assertEquals(id, founded.orElseThrow().getId());
     }
 }

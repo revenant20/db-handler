@@ -9,6 +9,7 @@ import java.util.Map;
 
 import static fm.sazonov.dbhandler.StaticPostgresContainer.StorageType.PERMANENT_STORAGE;
 import static fm.sazonov.dbhandler.StaticPostgresContainer.StorageType.TEMPORARY_STORAGE;
+import static java.lang.Boolean.TRUE;
 
 @Slf4j
 public class TestcontainersInitializer
@@ -18,7 +19,7 @@ public class TestcontainersInitializer
     public void initialize(ConfigurableApplicationContext context) {
         final var testcontainersEnabled = context.getEnvironment()
                 .getProperty("keysetpagination.testcontainers.enabled");
-        if (!"true".equals(testcontainersEnabled)) {
+        if (!TRUE.toString().equals(testcontainersEnabled)) {
             var env = context.getEnvironment();
             env.getPropertySources().addFirst(new MapPropertySource(
                     "testcontainers",
@@ -35,7 +36,7 @@ public class TestcontainersInitializer
         final var storageType = ("true".equals(permanentStorageEnabled))
                 ? PERMANENT_STORAGE : TEMPORARY_STORAGE;
         final var container = StaticPostgresContainer.getContainer(storageType);
-        final String jdbcUrl = container.getJdbcUrl();
+        final var jdbcUrl = container.getJdbcUrl();
         var env = context.getEnvironment();
         env.getPropertySources().addFirst(new MapPropertySource(
                 "testcontainers",
