@@ -1,8 +1,8 @@
 package fm.sazonov.dbhandler.service;
 
 import fm.sazonov.dbhandler.TestcontainersInitializer;
-import fm.sazonov.dbhandler.repository.AuthorRepository;
-import fm.sazonov.dbhandler.repository.BookRepository;
+import fm.sazonov.dbhandler.repository.AuthorJoinFetchRepository;
+import fm.sazonov.dbhandler.repository.BookJoinFetchRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -26,16 +28,16 @@ import static org.junit.jupiter.api.Assertions.*;
 @EnabledIf(expression = "${keysetpagination.testcontainers.enabled}", loadContext = true)
 @Rollback(value = false)
 @Transactional(propagation = Propagation.NEVER)
-class AuthorServiceImplTest {
+class AuthorJoinFetchServiceImplTest {
 
     @Autowired
-    AuthorServiceImpl authorService;
+    AuthorJoinFetchServiceImpl authorService;
 
     @Autowired
-    AuthorRepository authorRepository;
+    AuthorJoinFetchRepository authorRepository;
 
     @Autowired
-    BookRepository bookRepository;
+    BookJoinFetchRepository bookRepository;
 
     @Test
     void testLoad() {

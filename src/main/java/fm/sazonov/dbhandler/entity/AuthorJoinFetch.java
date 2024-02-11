@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @ToString
 @Table(name = "authors")
-public class Author {
+public class AuthorJoinFetch {
 
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -35,5 +35,5 @@ public class Author {
             mappedBy = "author"
     )
     @ToString.Exclude
-    private List<Book> books;
+    private List<BookJoinFetch> books;
 }
