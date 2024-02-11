@@ -41,8 +41,6 @@ class AuthorServiceImplTest {
     void testLoad() {
         authorService.load();
 
-
-
         var tolkien = authorService.getAuthor("Tolkien");
         assertNotNull(tolkien);
 
