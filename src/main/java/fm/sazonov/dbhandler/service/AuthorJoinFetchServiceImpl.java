@@ -2,9 +2,9 @@ package fm.sazonov.dbhandler.service;
 
 import fm.sazonov.dbhandler.dto.AuthorDto;
 import fm.sazonov.dbhandler.dto.BookDto;
-import fm.sazonov.dbhandler.entity.AuthorJoinFetch;
-import fm.sazonov.dbhandler.entity.BookJoinFetch;
-import fm.sazonov.dbhandler.repository.AuthorJoinFetchRepository;
+import fm.sazonov.dbhandler.entity.join.fetch.AuthorJoinFetch;
+import fm.sazonov.dbhandler.entity.join.fetch.BookJoinFetch;
+import fm.sazonov.dbhandler.repository.join.fetch.AuthorJoinFetchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

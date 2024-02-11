@@ -1,6 +1,6 @@
-package fm.sazonov.dbhandler.repository;
+package fm.sazonov.dbhandler.repository.join.fetch;
 
-import fm.sazonov.dbhandler.entity.BookJoinFetch;
+import fm.sazonov.dbhandler.entity.join.fetch.BookJoinFetch;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

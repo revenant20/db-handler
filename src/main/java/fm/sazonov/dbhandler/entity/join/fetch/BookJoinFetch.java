@@ -1,4 +1,4 @@
-package fm.sazonov.dbhandler.entity;
+package fm.sazonov.dbhandler.entity.join.fetch;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,32 +8,33 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @ToString
-@Table(name = "authors")
-public class AuthorJoinFetch {
+@Table(name = "books")
+public class BookJoinFetch {
 
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
-    @Column(name = "author_id")
+    @Column(name = "book_id")
     private String id;
 
-    @Column(name = "author_name")
+    @Column(name = "book_name")
     private String name;
 
-    @OneToMany(
+    @ManyToOne(
             cascade = CascadeType.ALL,
-            mappedBy = "author"
+            fetch = FetchType.LAZY
     )
-    @ToString.Exclude
-    private List<BookJoinFetch> books;
+    @JoinColumn(name = "author_id")
+    private AuthorJoinFetch author;
 }

@@ -1,8 +1,8 @@
 package fm.sazonov.dbhandler.service;
 
 import fm.sazonov.dbhandler.TestcontainersInitializer;
-import fm.sazonov.dbhandler.repository.AuthorJoinFetchRepository;
-import fm.sazonov.dbhandler.repository.BookJoinFetchRepository;
+import fm.sazonov.dbhandler.repository.join.fetch.AuthorJoinFetchRepository;
+import fm.sazonov.dbhandler.repository.join.fetch.BookJoinFetchRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
