@@ -28,4 +28,12 @@
             </column>
         </addColumn>
     </changeSet>
+    <changeSet id="3" author="sazonovfm">
+        <addColumn tableName="authors">
+            <column name="author_name" type="varchar"/>
+        </addColumn>
+        <addColumn tableName="books">
+            <column name="book_name" type="varchar"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

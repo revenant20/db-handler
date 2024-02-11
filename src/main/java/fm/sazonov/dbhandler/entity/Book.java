@@ -2,6 +2,7 @@ package fm.sazonov.dbhandler.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "books")
 public class Book {
 
@@ -18,7 +20,13 @@ public class Book {
     @Column(name = "book_id")
     private String id;
 
-    @ManyToOne
+    @Column(name = "book_name")
+    private String name;
+
+    @ManyToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
     @JoinColumn(name = "author_id")
     private Author author;
 }
