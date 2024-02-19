@@ -1,8 +1,8 @@
 package fm.sazonov.dbhandler.service;
 
 import fm.sazonov.dbhandler.TestcontainersInitializer;
-import fm.sazonov.dbhandler.repository.pageable.AuthorPageableRepository;
-import fm.sazonov.dbhandler.repository.pageable.BookPageableRepository;
+import fm.sazonov.dbhandler.repository.pageable.cart.AuthorCartRepository;
+import fm.sazonov.dbhandler.repository.pageable.cart.BookCartRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.EnabledIf;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -26,17 +23,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ContextConfiguration(initializers = TestcontainersInitializer.class)
 @EnabledIf(expression = "${keysetpagination.testcontainers.enabled}", loadContext = true)
 @Rollback(value = false)
-@Transactional(propagation = Propagation.NEVER)
-class AuthorPageableServiceImplTest {
+class AuthorCartServiceTest {
 
     @Autowired
-    AuthorPageableRepository authorPageableRepository;
+    AuthorCartRepository authorCartRepository;
 
     @Autowired
-    AuthorPageableServiceImpl authorPageableService;
+    BookCartRepository bookCartRepository;
 
     @Autowired
-    BookPageableRepository bookPageableRepository;
+    AuthorCartService authorCartService;
 
     @Test
     void test() {
@@ -44,13 +40,13 @@ class AuthorPageableServiceImplTest {
         System.out.println("Загрузка книг и автора");
         System.out.println();
 
-        authorPageableService.load();
+        authorCartService.load();
 
         System.out.println();
         System.out.println("Получение авторов с книгами");
         System.out.println();
 
-        var authors = authorPageableService.getAuthors(3, 1);
+        var authors = authorCartService.getAuthors(3, 1);
 
         assertNotNull(authors);
         assertEquals(3, authors.size());

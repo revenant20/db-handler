@@ -36,4 +36,15 @@
             <column name="book_name" type="varchar"/>
         </addColumn>
     </changeSet>
+    <changeSet id="4" author="sazonovfm">
+        <createTable tableName="tags">
+            <column name="tag_id" type="varchar">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="tag_name" type="varchar"/>
+            <column name="author_id" type="varchar">
+                <constraints foreignKeyName="author_id"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
