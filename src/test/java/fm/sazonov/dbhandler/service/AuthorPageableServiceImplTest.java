@@ -52,7 +52,10 @@ class AuthorPageableServiceImplTest {
         System.out.println("Получение авторов с книгами");
         System.out.println();
 
-        List<AuthorDto> authors = authorPageableService.getAuthors(1, 3);
+        var authors = authorPageableService.getAuthors(3, 1);
+
+        assertNotNull(authors);
+        assertEquals(3, authors.size());
 
     }
 }

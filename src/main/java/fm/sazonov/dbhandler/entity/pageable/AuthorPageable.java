@@ -3,6 +3,7 @@ package fm.sazonov.dbhandler.entity.pageable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.CascadeType;
@@ -30,6 +31,7 @@ public class AuthorPageable {
     @Column(name = "author_name")
     private String name;
 
+    @BatchSize(size = 3)
     @OneToMany(
             cascade = CascadeType.ALL,
             mappedBy = "author"

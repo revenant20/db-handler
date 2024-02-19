@@ -44,7 +44,7 @@ public class AuthorPageableServiceImpl implements AuthorService {
                 PageRequest.of(
                         offset,
                         limit,
-                        Sort.DEFAULT_DIRECTION, "author_xid"
+                        Sort.DEFAULT_DIRECTION, "id"
                 )
         );
         return authorsPage.get()
