@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
@@ -99,8 +100,8 @@ public class AuthorCartService implements AuthorService {
         elf.setAuthor(newAuthor);
         elf.setName("elf");
 
-        newAuthor.setBooks(List.of(silmarillion, lordsOfTheRings));
-        newAuthor.setTags(List.of(fantasy, elf));
+        newAuthor.setBooks(Set.of(silmarillion, lordsOfTheRings));
+        newAuthor.setTags(Set.of(fantasy, elf));
         return newAuthor;
     }
 }

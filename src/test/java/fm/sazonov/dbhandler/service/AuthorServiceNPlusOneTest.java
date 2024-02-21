@@ -19,9 +19,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -31,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @EnabledIf(expression = "${keysetpagination.testcontainers.enabled}", loadContext = true)
 @Rollback(value = false)
 @Transactional(propagation = Propagation.NEVER)
-class AuthorServiceImplTest {
+class AuthorServiceNPlusOneTest {
 
     @Autowired
     AuthorServiceImpl authorService;
@@ -42,36 +41,84 @@ class AuthorServiceImplTest {
     @Autowired
     BookRepository bookRepository;
 
-    @Test
-    void testLoad() {
-        System.out.println("Загрузка книг и автора");
-        System.out.println();
-
+    @PostConstruct
+    public void setUp() {
         authorService.load();
 
-        System.out.println();
-        System.out.println("Получение автора с книгами");
-        System.out.println();
+        {
+            var newAuthor = new Author();
 
-        var tolkien = authorService.getAuthor("Tolkien");
-        assertNotNull(tolkien);
+            newAuthor.setName("Rowling");
 
-        var books = tolkien.books();
-        assertFalse(books.isEmpty());
+            var hp = new Book();
+            hp.setAuthor(newAuthor);
+            hp.setName("Harry Potter");
 
-        System.out.println();
-        System.out.println("Получение книг для проверки");
-        System.out.println();
+            newAuthor.setBooks(List.of(hp));
 
-        for (var book : books) {
-            var bookId = book.id();
-            var foundedBookOpt = bookRepository.findById(bookId);
-            var foundBook = foundedBookOpt.orElseThrow();
-            var author = foundBook.getAuthor();
-            assertNotNull(author);
-            assertNotNull(author.getId());
-            assertEquals(tolkien.id(), author.getId());
+            authorRepository.save(newAuthor);
         }
+        {
+            var newAuthor = new Author();
+
+            newAuthor.setName("Martin");
+
+            var hp = new Book();
+            hp.setAuthor(newAuthor);
+            hp.setName("Clean Code");
+
+            newAuthor.setBooks(List.of(hp));
+
+            authorRepository.save(newAuthor);
+        }
+    }
+
+    @Test
+    @Transactional
+    void testNplusOne() {
+
+        List<Author> authors = authorRepository.findAll();
+
+        for (Author author : authors) {
+            List<Book> books = author.getBooks();
+            System.out.println(books.size());
+        }
+
+    }
+
+    @Test
+    @Transactional
+    void testNplusOnePageable() {
+
+        List<Author> authors = authorRepository.findAllBasic(
+                Pageable.ofSize(10).withPage(0));
+
+        for (Author author : authors) {
+            List<Book> books = author.getBooks();
+            System.out.println(books.size());
+        }
+
+    }
+
+    @Test
+    void testNplusOneNative() {
+
+        String[] authors = authorRepository.findAllAuthorsNative(
+                1, 0);
+
+    }
+
+    @Test
+    void testGraph() {
+
+        List<Author> authors = authorRepository.findAllGraph(
+                Pageable.ofSize(1).withPage(0));
+
+        for (Author author : authors) {
+            List<Book> books = author.getBooks();
+            System.out.println(books.size());
+        }
+
     }
 
     @Test
@@ -85,28 +132,12 @@ class AuthorServiceImplTest {
         System.out.println("Получение автора с книгами");
         System.out.println();
 
-        final List<Author> authors = authorRepository.findAllFetch(
-               Pageable.ofSize(3).withPage(0));
+        List<Author> authors = authorRepository.findAllFetch(
+                Pageable.ofSize(3).withPage(0));
 
         for (Author author : authors) {
             List<Book> books = author.getBooks();
             System.out.println(books.size());
         }
     }
-
-    @Test
-    void testNativePaging() {
-
-        System.out.println("Загрузка книг и автора");
-        System.out.println();
-
-        authorService.load();
-
-        System.out.println();
-        System.out.println("Получение авторов с книгами");
-        System.out.println();
-
-        final String[] authorsWithBooks = authorRepository.findAllAuthorsNative(2, 1);
-    }
-
 }

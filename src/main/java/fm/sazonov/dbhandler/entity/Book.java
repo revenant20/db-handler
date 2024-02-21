@@ -1,5 +1,6 @@
 package fm.sazonov.dbhandler.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,10 +20,12 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "books")
 public class Book {
 
     @Id
+    @EqualsAndHashCode.Include
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
     @Column(name = "book_id")
@@ -35,6 +38,7 @@ public class Book {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
+    @ToString.Exclude
     @JoinColumn(name = "author_id")
     private Author author;
 }

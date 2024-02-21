@@ -22,19 +22,21 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional
     @Override
     public void load() {
-        var newAuthor = new Author();
-        newAuthor.setName("Tolkien");
+        {
+            var newAuthor = new Author();
+            newAuthor.setName("Tolkien");
 
-        var silmarillion = new Book();
-        silmarillion.setAuthor(newAuthor);
-        silmarillion.setName("The Silmarillion");
+            var silmarillion = new Book();
+            silmarillion.setAuthor(newAuthor);
+            silmarillion.setName("The Silmarillion");
 
-        var lordsOfTheRings = new Book();
-        lordsOfTheRings.setAuthor(newAuthor);
-        lordsOfTheRings.setName("The Lords Of The Rings");
+            var lordsOfTheRings = new Book();
+            lordsOfTheRings.setAuthor(newAuthor);
+            lordsOfTheRings.setName("The Lords Of The Rings");
 
-        newAuthor.setBooks(List.of(silmarillion, lordsOfTheRings));
-        authorRepository.save(newAuthor);
+            newAuthor.setBooks(List.of(silmarillion, lordsOfTheRings));
+            authorRepository.save(newAuthor);
+        }
     }
 
     @Transactional
