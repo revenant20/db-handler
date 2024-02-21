@@ -1,8 +1,10 @@
 package fm.sazonov.dbhandler.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.CascadeType;
@@ -18,10 +20,12 @@ import java.util.List;
 @Setter
 @Entity
 @ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "authors")
 public class Author {
 
     @Id
+    @EqualsAndHashCode.Exclude
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
     @Column(name = "author_id")
@@ -30,6 +34,7 @@ public class Author {
     @Column(name = "author_name")
     private String name;
 
+    //@BatchSize(size = 2)
     @OneToMany(
             cascade = CascadeType.ALL,
             mappedBy = "author"

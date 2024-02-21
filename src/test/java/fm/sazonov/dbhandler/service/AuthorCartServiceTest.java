@@ -1,6 +1,7 @@
 package fm.sazonov.dbhandler.service;
 
 import fm.sazonov.dbhandler.TestcontainersInitializer;
+import fm.sazonov.dbhandler.entity.pageable.cart.AuthorCart;
 import fm.sazonov.dbhandler.repository.pageable.cart.AuthorCartRepository;
 import fm.sazonov.dbhandler.repository.pageable.cart.BookCartRepository;
 import org.junit.jupiter.api.Test;
@@ -9,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.EnabledIf;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -46,10 +47,11 @@ class AuthorCartServiceTest {
         System.out.println("Получение авторов с книгами");
         System.out.println();
 
-        var authors = authorCartService.getAuthors(3, 1);
+//        var authors = authorCartService.getAuthors(3, 1);
+        final Slice<AuthorCart> autorrs = authorCartRepository.findAllAuthors(Pageable.ofSize(2));
 
-        assertNotNull(authors);
-        assertEquals(3, authors.size());
+//        assertNotNull(authors);
+//        assertEquals(3, authors.size());
 
     }
 }

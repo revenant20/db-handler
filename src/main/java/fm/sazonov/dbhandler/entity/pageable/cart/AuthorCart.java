@@ -13,7 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -37,7 +37,7 @@ public class AuthorCart {
             mappedBy = "author"
     )
     @ToString.Exclude
-    private List<BookCart> books;
+    private Set<BookCart> books;
 
     @BatchSize(size = 3)
     @OneToMany(
@@ -45,5 +45,5 @@ public class AuthorCart {
             mappedBy = "author"
     )
     @ToString.Exclude
-    private List<Tag> tags;
+    private Set<Tag> tags;
 }
